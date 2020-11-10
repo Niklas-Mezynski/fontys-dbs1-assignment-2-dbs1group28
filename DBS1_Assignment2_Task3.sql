@@ -13,7 +13,12 @@ group by pres_id
 having count(*) >= 5;
 
 -- 3
-
+select	election_year, sum(votes)
+from election
+where election_year > 1900
+group by election_year
+having count(candidate) >= 3
+order by election_year;	
 
 -- 4
 select max(vote_diff)
@@ -34,7 +39,11 @@ having count(*) > 2 and max(votes) >= 0.8 * sum(votes)
 order by election_year;
 
 -- 6
-
+select pres_id, max(nr_children), min(nr_children)
+from pres_marriage
+group by pres_id
+having count(pres_marriage)>1
+order by pres_id;
 
 -- 7
 select pres_id
@@ -59,7 +68,11 @@ order by pres_id;
 
 
 -- 10
-
+select pres_id
+from pres_marriage
+group by pres_id
+having sum(nr_children) = 0
+order by pres_id;
 
 -- 11
 select pres_id
