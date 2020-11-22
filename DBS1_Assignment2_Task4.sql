@@ -9,6 +9,27 @@ where pres_id = any (	select id
 											where winner_loser_indic = 'L' and e.candidate = p2."name"))
 order by hobby;
 
+-- 2
+select distinct s.name
+from state s
+	inner join president p 
+		on s.id = p.state_id_born
+	inner join (select pres_id ,min(year_inaugurated) as min_year_inaugurated from administration 
+			group by pres_id
+			having min(year_inaugurated) > 1900) adm
+		on p.id = adm.pres_id
+order by s."name" ;
+								  
+-- 4
+select distinct s.name
+from state s
+	inner join president p 
+		on s.id = p.state_id_born 
+	inner join pres_marriage pm 
+		on pm.pres_id = p.id 
+where pm.nr_children = 0
+order by s."name" ;								  
+								  
 
 
 -- Subqueries without correlation
