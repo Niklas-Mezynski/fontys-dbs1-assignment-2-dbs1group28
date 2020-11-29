@@ -46,7 +46,14 @@ having count(*) > 4
 								  
 								  
 -- Subqueries with correlation
-
+-- 1
+select p.name, p.party, p.years_served 
+from president p
+where p.years_served =
+any (select (max(p2.years_served)) 
+from president p2 
+where p2.party = p.party)
+order by years_served desc;
 
 								  
 -- exercise with two solutions
